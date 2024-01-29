@@ -28,9 +28,7 @@ LOGIN DETAILS:
 1. To login as admin: username- admin@gmail.com
                       password- admin@2000
 
-2.To login as regular user:a) username- ashigupta0529@gmail.com
-                              password- ashi@2000
-                              
-                           b) username- test@gmail.com
+2.To login as regular user:
+                           a) username- test@gmail.com
                               password- test@2000                    
 
