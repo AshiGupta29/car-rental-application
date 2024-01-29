@@ -1,0 +1,8 @@
+<ngb-pagination *ngIf="totalCount && pageSize && pageNumber"
+   [collectionSize]="totalCount" 
+   [(page)]="pageNumber" 
+   [maxSize]="10"
+   (pageChange)="onPagerChanged($event)" 
+   [pageSize]="pageSize" 
+   [boundaryLinks]="true">
+</ngb-pagination>

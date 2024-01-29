@@ -1,0 +1,266 @@
+<ng-container>
+    <div class="container" *ngIf="orders">
+        <div class="row">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="bg-light text-uppercase">
+                        <tr>
+                            <th>
+                                <div class="py-4"></div>
+                            </th>
+                            <th>
+                                <div class="py-4">Car Name</div>
+                            </th>
+                            <th>
+                                <div class="py-4">Model Year</div>
+                            </th>
+                            <th>
+                                <div class="py-4">Rent Date</div>
+                            </th>
+                            <th>
+                                <div class="py-4">Return Date</div>
+                            </th>
+                            <th>
+                                <div class="py-4">Total</div>
+                            </th>
+                            <th>
+                                <div class="py-4">User Email</div>
+                            </th>
+                            <th>
+                                <div class="py-4">Edit</div>
+                            </th>
+                            <th>
+                                <div class="py-4">Remove</div>
+                            </th>
+                            <th>
+                                <div class="py-4">Return Request</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let order of orders">
+                            <th>
+                                <div class="p-2 d-inline-block">
+                                    <img src="{{order.imageUrl}}" alt="{{order.carName}}" class="img-fluid larger-image"
+                                        style="max-height: 50px;">
+                                </div>
+                            </th>
+                            <td class="align-middle"><strong>{{order.carName}}</strong></td>
+                            <td class="align-middle"><strong>{{order.model}}</strong></td>
+                            <td class="align-middle"><strong>{{order.startDate | date: 'dd-MM-yyyy'}}</strong></td>
+                            <td class="align-middle"><strong>{{order.returnDate | date: 'dd-MM-yyyy'}}</strong></td>
+                            <td class="align-middle"><strong>{{order.total | currency: "INR" : "symbol"}}</strong></td>
+                            <td class="align-middle"><strong>{{order.buyerEmail}}</strong></td>
+                            <td class="align-middle">
+                                <div class="d-flex align-items-center">
+                                    <button class="btn btn-outline-primary" (click)="open(content,order)">Edit</button>
+                                </div>
+                            </td>
+                            <td class="align-middle">
+                                <a class="text-danger">
+                                    <i class="fa fa-trash" style="font-size: 1.5em; cursor: pointer;"
+                                        (click)="deleteOrder(order.id)"></i>
+                                </a>
+                            </td>
+                            <td class="align-middle">
+                                <span *ngIf="order.isReturned === 1" style="color: orangered; font-weight: bold;">Return
+                                    not requested</span>
+                                <span *ngIf="order.isReturned === 2" style="color: orange; font-weight: bold;">Requested
+                                    for return</span>
+                                <div *ngIf="order.isReturned === 2" class="d-flex align-items-center">
+                                    <button class="btn btn-outline-primary"
+                                        (click)="ApproveReturnRequest(order.id, order.buyerEmail,order.orderdate,order.total,order.startDate,order.returnDate,order.isReturned,order.carId,order.carName,order.imageUrl,order.model,order.rentalPrice)">Approve</button>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <button *ngIf="order.isReturned === 3" [disabled]="order.isReturned === 3"
+                                        class="btn btn-success">Approved</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</ng-container>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Edit Rental Agreement</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="orderForm" (ngSubmit)="onSubmit(orderForm)">
+            <div class="form-group">
+                <label for="id">Order ID</label>
+                <input type="text" class="form-control mb-2" id="id" formControlName="id" readonly />
+                <div class="text-danger" *ngIf="
+              orderForm.get('id')?.invalid &&
+              (orderForm.get('id')?.dirty || orderForm.get('startDate')?.touched)
+            ">
+                    <div *ngIf="orderForm.get('id')?.errors?.['required']">
+                        Order ID is required
+                    </div>
+                </div>
+
+                <label for="buyerEmail">User Email</label>
+                <input type="text" class="form-control mb-2" id="buyerEmail" formControlName="buyerEmail" />
+                <div class="text-danger" *ngIf="
+              orderForm.get('buyerEmail')?.invalid &&
+              (orderForm.get('buyerEmail')?.dirty || orderForm.get('startDate')?.touched)
+            ">
+                    <div *ngIf="orderForm.get('buyerEmail')?.errors?.['required']">
+                        User Email is required
+                    </div>
+                    <div *ngIf="orderForm.get('buyerEmail')?.errors?.['pattern']">
+                        Invalid email address
+                    </div>
+                </div>
+
+                <label for="orderdate">Order Date</label>
+                <input type="text" class="form-control mb-2" id="orderdate" formControlName="orderdate" readonly />
+                <div class="text-danger" *ngIf="
+              orderForm.get('orderdate')?.invalid &&
+              (orderForm.get('orderdate')?.dirty || orderForm.get('orderdate')?.touched)
+            ">
+                    <div *ngIf="orderForm.get('orderdate')?.errors?.['required']">
+                        Order date is required
+                    </div>
+                    <div *ngIf="orderForm.get('orderdate')?.errors?.['pattern']">
+                        Invalid date Format.Please enter a valid date in yyyy-mm-dd format only
+                    </div>
+                </div>
+
+                <label for="total">Total Amount</label>
+                <input type="text" class="form-control mb-2" id="total" formControlName="total" />
+                <div class="text-danger" *ngIf="
+              orderForm.get('total')?.invalid &&
+              (orderForm.get('total')?.dirty || orderForm.get('total')?.touched)
+            ">
+                    <div *ngIf="orderForm.get('total')?.errors?.['required']">
+                        Total Amount is required.
+                    </div>
+                </div>
+
+                <label for="startDate">Start Date</label>
+                <input type="text" class="form-control mb-2" id="startDate" formControlName="startDate" />
+                <div class="text-danger" *ngIf="
+              orderForm.get('startDate')?.invalid &&
+              (orderForm.get('startDate')?.dirty || orderForm.get('startDate')?.touched)
+            ">
+                    <div *ngIf="orderForm.get('startDate')?.errors?.['required']">
+                        Start date is required
+                    </div>
+                    <div *ngIf="orderForm.get('startDate')?.errors?.['pattern']">
+                        Invalid date Format.Please enter a valid date in yyyy-mm-dd format only
+                    </div>
+                </div>
+
+                <label for="returnDate">Return Date</label>
+                <input type="text" class="form-control mb-2" id="returnDate" formControlName="returnDate" />
+                <div class="text-danger" *ngIf="
+              orderForm.get('returnDate')?.invalid &&
+              (orderForm.get('returnDate')?.dirty || orderForm.get('returnDate')?.touched)
+            ">
+                    <div *ngIf="orderForm.get('returnDate')?.errors?.['required']">
+                        Return date is required
+                    </div>
+                    <div *ngIf="orderForm.get('returnDate')?.errors?.['pattern']">
+                        Invalid date Format.Please enter a valid date in yyyy-mm-dd format only
+                    </div>
+                </div>
+
+                <label for="isReturned">Returned Status</label>
+                <input type="text" class="form-control mb-2" id="isReturned" formControlName="isReturned" readonly />
+                <div class="text-danger" *ngIf="
+            orderForm.get('isReturned')?.invalid &&
+            (orderForm.get('isReturned')?.dirty || orderForm.get('isReturned')?.touched)
+          ">
+                    <div *ngIf="orderForm.get('isReturned')?.errors?.['required']">
+                        Status is required
+                    </div>
+                </div>
+
+                <label for="carId">Car ID</label>
+                <input type="text" class="form-control mb-2" id="carId" formControlName="carId" readonly />
+                <div class="text-danger" *ngIf="
+              orderForm.get('carId')?.invalid &&
+              (orderForm.get('carId')?.dirty || orderForm.get('startDate')?.touched)
+            ">
+                    <div *ngIf="orderForm.get('carId')?.errors?.['required']">
+                        Car ID is required
+                    </div>
+                </div>
+
+
+                <label for="carName">Car Name</label>
+                <input type="text" class="form-control mb-2" id="carName" formControlName="carName" />
+                <div class="text-danger" *ngIf="
+            orderForm.get('carName')?.invalid &&
+            (orderForm.get('carName')?.dirty || orderForm.get('carName')?.touched)
+          ">
+                    <div *ngIf="orderForm.get('carName')?.errors?.['required']">
+                        Car Name is required.
+                    </div>
+                    <div *ngIf="orderForm.get('carName')?.errors?.['maxLength']">
+                        Car Name cannot exceed 100 characters.
+                    </div>
+                    <div *ngIf="orderForm.get('carName')?.errors?.['pattern']">
+                        Car Name can only contain alphanumeric characters.
+                    </div>
+                </div>
+
+                <label for="imageUrl">Image Url</label>
+                <input type="text" class="form-control mb-2" id="imageUrl" formControlName="imageUrl" />
+                <div class="text-danger" *ngIf="
+              orderForm.get('imageUrl')?.invalid &&
+              (orderForm.get('imageUrl')?.dirty || orderForm.get('imageUrl')?.touched)
+            ">
+                    <div *ngIf="orderForm.get('imageUrl')?.errors?.['required']">
+                        Image Url is required.
+                    </div>
+                    <div *ngIf="orderForm.get('imageUrl')?.errors?.['pattern']">
+                        JPG or JPEG or PNG format only.
+                    </div>
+                </div>
+
+                <label for="model">Model Year</label>
+                <input type="text" class="form-control mb-2" id="model" formControlName="model" />
+                <div class="text-danger" *ngIf="
+              orderForm.get('model')?.invalid &&
+              (orderForm.get('model')?.dirty || orderForm.get('model')?.touched)
+            ">
+                    <div *ngIf="orderForm.get('model')?.errors?.['required']">
+                        Model Year is required.
+                    </div>
+                    <div *ngIf="orderForm.get('model')?.errors?.['pattern']">
+                        Please Enter Year from 1900 to 2023 only.
+                    </div>
+                </div>
+
+                <label for="rentalPrice">Rental Price</label>
+                <input type="text" class="form-control mb-2" id="rentalPrice" formControlName="rentalPrice" />
+                <div class="text-danger" *ngIf="
+              orderForm.get('rentalPrice')?.invalid &&
+              (orderForm.get('rentalPrice')?.dirty ||
+                orderForm.get('rentalPrice')?.touched)
+            ">
+                    <div *ngIf="orderForm.get('rentalPrice')?.errors?.['required']">
+                        Price is required.
+                    </div>
+                    <div *ngIf="orderForm.get('rentalPrice')?.errors?.['pattern']">
+                        Invalid Price Format.Please enter a valid price, such as 10 or 10.0
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-outline-primary" (click)="modal.close('Save click')"
+                    [disabled]="orderForm.invalid">
+                    Save
+                </button>
+            </div>
+        </form>
+    </div>
+</ng-template>

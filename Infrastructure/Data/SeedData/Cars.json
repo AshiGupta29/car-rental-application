@@ -1,0 +1,58 @@
+[
+    {
+      "Name": "Wagon R",
+      "Model": 2021,
+      "CarMakerId": 1,
+      "AvailabilityStatus": true,
+      "ImageUrl": "images/cars/wagonr.jpeg",
+      "RentalPrice": 1500
+    },
+    {
+      "Name": "Swift",
+      "Model": 2019,
+      "CarMakerId": 1,
+      "AvailabilityStatus": true,
+      "ImageUrl": "images/cars/swift.jpeg",
+      "RentalPrice": 700
+    },
+    {
+      "Name": "Amaze",
+      "Model": 2020,
+      "CarMakerId": 2,
+      "AvailabilityStatus": true,
+      "ImageUrl": "images/cars/amaze.jpeg",
+      "RentalPrice": 1700
+    },
+    {
+      "Name": "Camry",
+      "Model": 2022,
+      "CarMakerId": 3,
+      "AvailabilityStatus": true,
+      "ImageUrl": "images/cars/camry.jpeg",
+      "RentalPrice": 1900
+    },
+    {
+      "Name": "Tigor",
+      "Model": 2018,
+      "CarMakerId": 4,
+      "AvailabilityStatus": true,
+      "ImageUrl": "images/cars/tigor.jpeg",
+      "RentalPrice": 1550
+    },
+    {
+      "Name": "Aura",
+      "Model": 2023,
+      "CarMakerId": 5,
+      "AvailabilityStatus": true,
+      "ImageUrl": "images/cars/aura.jpeg",
+      "RentalPrice": 2000
+    },
+    {
+      "Name": "Ciaz",
+      "Model": 2021,
+      "CarMakerId": 1,
+      "AvailabilityStatus": true,
+      "ImageUrl": "images/cars/ciaz.jpeg",
+      "RentalPrice": 1800
+    }
+  ]

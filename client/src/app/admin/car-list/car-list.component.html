@@ -1,0 +1,129 @@
+<div class="card h-100 shadow-sm" *ngIf="car">
+  <div class="image position-relative" style="cursor: pointer">
+    <img src="{{ car.imageUrl }}" alt="{{ car.name }}" class="img-fluid" />
+    <div class="d-flex align-items-center justify-content-center hover-overlay">
+      <button class="btn btn-primary me-2" (click)="open(content)">Edit</button>
+      <button class="btn btn-primary fa-sharp fa-solid fa-trash me-2" (click)="deleteCar(car.id)"></button>
+    </div>
+  </div>
+
+  <div class="card-body d-flex flex-column">
+    <a href="" class="text-decoration-none">
+      <h6 class="text-uppercase">
+        {{ car.name }}
+      </h6>
+    </a>
+    <span class="mb-2">Rental Price: {{ car.rentalPrice | currency : "INR" : "symbol" }}/day</span>
+  </div>
+</div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Edit Car</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form *ngIf="car" [formGroup]="carForm" (ngSubmit)="onSubmit(car.id, carForm)">
+      <div class="form-group">
+        <label for="name">Car Name</label>
+        <input type="text" class="form-control mb-2" id="name" formControlName="name" />
+        <div class="text-danger" *ngIf="
+            carForm.get('name')?.invalid &&
+            (carForm.get('name')?.dirty || carForm.get('name')?.touched)
+          ">
+          <div *ngIf="carForm.get('name')?.errors?.['required']">
+            Car Name is required.
+          </div>
+          <div *ngIf="carForm.get('name')?.errors?.['maxLength']">
+            Car Name cannot exceed 100 characters.
+          </div>
+          <div *ngIf="carForm.get('name')?.errors?.['pattern']">
+            Car Name can only contain alphanumeric characters.
+          </div>
+        </div>
+
+        <label for="model">Model Year</label>
+        <input type="text" class="form-control mb-2" id="model" formControlName="model"/>
+        <div class="text-danger" *ngIf="
+            carForm.get('model')?.invalid &&
+            (carForm.get('model')?.dirty || carForm.get('model')?.touched)
+          ">
+          <div *ngIf="carForm.get('model')?.errors?.['required']">
+            Model Year is required.
+          </div>
+          <div *ngIf="carForm.get('model')?.errors?.['pattern']">
+            Please Enter Year from 1900 to 2023 only.
+          </div>
+        </div>
+
+        <label for="carMaker">Brand</label>
+        <select type="text" class="form-control mb-2" id="carMaker" formControlName="carMaker">
+          <option>Maruti Suzuki</option>
+          <option>Honda</option>
+          <option>Toyota</option>
+          <option>Tata</option>
+          <option>Hyundai</option>
+        </select>
+        <div class="text-danger" *ngIf="
+            carForm.get('carMaker')?.invalid &&
+            (carForm.get('carMaker')?.dirty || carForm.get('carMaker')?.touched)
+          ">
+          <div *ngIf="carForm.get('carMaker')?.errors?.['required']">
+            Brand is required.
+          </div>
+        </div>
+
+        <label for="availabilityStatus">Availablility Status</label>
+        <input type="text" class="form-control mb-2" id="availabilityStatus" formControlName="availabilityStatus" />
+        <div class="text-danger" *ngIf="
+            carForm.get('availabilityStatus')?.invalid &&
+            (carForm.get('availabilityStatus')?.dirty ||
+              carForm.get('availabilityStatus')?.touched)
+          ">
+          <div *ngIf="carForm.get('availabilityStatus')?.errors?.['required']">
+            Availability Status is required.
+          </div>
+          <div *ngIf="carForm.get('availabilityStatus')?.errors?.['pattern']">
+            Please fill either true or false.
+          </div>
+        </div>
+
+        <label for="imageUrl">Image Url</label>
+        <input type="text" class="form-control mb-2" id="imageUrl" formControlName="imageUrl" />
+        <div class="text-danger" *ngIf="
+            carForm.get('imageUrl')?.invalid &&
+            (carForm.get('imageUrl')?.dirty || carForm.get('imageUrl')?.touched)
+          ">
+          <div *ngIf="carForm.get('imageUrl')?.errors?.['required']">
+            Image Url is required.
+          </div>
+          <div *ngIf="carForm.get('imageUrl')?.errors?.['pattern']">
+            JPG or JPEG or PNG format only.
+          </div>
+        </div>
+
+        <label for="rentalPrice">Rental Price</label>
+        <input type="text" class="form-control mb-2" id="rentalPrice" formControlName="rentalPrice" />
+        <div class="text-danger" *ngIf="
+            carForm.get('rentalPrice')?.invalid &&
+            (carForm.get('rentalPrice')?.dirty ||
+              carForm.get('rentalPrice')?.touched)
+          ">
+          <div *ngIf="carForm.get('rentalPrice')?.errors?.['required']">
+            Price is required.
+          </div>
+          <div *ngIf="carForm.get('rentalPrice')?.errors?.['pattern']">
+            Invalid Price Format.Please enter a valid price, such as 10 or 10.0
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="submit" *ngIf="car" class="btn btn-outline-primary" (click)="modal.close('Save click')"
+          [disabled]="carForm.invalid">
+          Save
+        </button>
+      </div>
+    </form>
+  </div>
+</ng-template>

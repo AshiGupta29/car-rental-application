@@ -1,0 +1,86 @@
+<div class="container mt-5">
+    <div *ngIf="(basketService.basketSource$ | async) === null">
+        <p>There are no items in your basket</p>
+    </div>
+    <ng-container *ngIf="(basketService.basketSource$ | async) as basket">
+        <div class="container">
+            <div class="row">
+                <div class="col-6 p-2 d-inline-block">
+                    <img src="{{basket.item.imageUrl}}" alt="{{basket.item.carName}}" class="img-fluid"
+                        style="max-height: 100px;">
+                    <div class="ms-3 d-inline-block align-middle">
+                        <h5 class="mb-0">
+                            <a routerLink="/shop/{{basket.item.id}}" class="text-dark text-decoration-none">
+                                {{basket.item.carName}}
+                            </a>
+                        </h5>
+                        <span class="text-muted fst-italic">
+                            Brand: {{basket.item.carMaker}}
+                        </span><br>
+                        <span class="text-muted fst-italic">
+                            Model: {{basket.item.model}}
+                        </span><br>
+                        <span class="text-muted fst-italic"><strong>Rental Price: {{basket.item.rentalPrice | currency:
+                                "INR" :
+                                "symbol"}}/day</strong>
+                        </span>
+                    </div>
+                </div>
+                <div class="align-middle col-6 mt-5">
+                    <div class="d-flex align-items-center">
+                        <i class="fa fa-minus-circle text-primary me-2" style="cursor: pointer; font-size: 1.5em;"
+                             routerLink="/Home">Proceed with another car</i>
+                    </div>
+                </div>
+
+                <form [formGroup]="dateSelectionForm" (ngSubmit)="checkTotal(dateSelectionForm)">
+                    <div class="form-group mt-4">
+                        <div class="mt-4">
+
+                            <label for="startDate">Start Date</label>
+                            <input type="date" id="startDate" class="form-control" formControlName="startDate">
+                            <div class="text-danger" *ngIf="
+                         dateSelectionForm.get('startDate')?.invalid &&
+                         (dateSelectionForm.get('startDate')?.dirty || dateSelectionForm.get('startDate')?.touched)
+                       ">
+                                <div *ngIf="dateSelectionForm.get('startDate')?.errors?.['required']">
+                                    Start date is required.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4">
+
+                            <label for="returnDate">Return Date</label>
+                            <input type="date" id="returnDate" class="form-control" formControlName="returnDate">
+                            <div class="text-danger" *ngIf="
+                        dateSelectionForm.get('returnDate')?.invalid &&
+                        (dateSelectionForm.get('returnDate')?.dirty || dateSelectionForm.get('returnDate')?.touched)
+                      ">
+                                <div *ngIf="dateSelectionForm.get('returnDate')?.errors?.['required']">
+                                    Return Date is required.
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary mt-4" [disabled]="dateSelectionForm.invalid">Calculate
+                            Total</button>
+
+                    </div>
+                </form>
+            </div>
+
+            <div class="row">
+                <div class="col-6 offset-6">
+                    <app-order-totals></app-order-totals>
+                    <div class="d-grid">
+                        <span style="font-weight: bold; color: orange">Once you accepts the rental agreement, it cannot be edited or deleted.</span>
+                        <a (click)="submitOrder()" routerLink="/checkout" class="btn btn-outline-primary py-2 mb-2">
+                            Accept
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</div>

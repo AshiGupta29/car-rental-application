@@ -1,0 +1,107 @@
+<div class="d-flex justify-content-center mt-5">
+  <div class="col-6">
+    <form [formGroup]="addCar" (ngSubmit)="onSubmit(addCar)">
+      <div class="form-group">
+        <label for="name">Car Name</label>
+        <input type="text" class="form-control mb-2" id="name" formControlName="name" />
+        <div class="text-danger" *ngIf="
+            addCar.get('name')?.invalid &&
+            (addCar.get('name')?.dirty || addCar.get('name')?.touched)
+          ">
+          <div *ngIf="addCar.get('name')?.errors?.['required']">
+            Car Name is required.
+          </div>
+          <div *ngIf="addCar.get('name')?.errors?.['maxLength']">
+            Car Name cannot exceed 100 characters.
+          </div>
+          <div *ngIf="addCar.get('name')?.errors?.['pattern']">
+            Car Name can only contain alphanumeric characters.
+          </div>
+        </div>
+
+        <label for="model">Model Year</label>
+        <input type="text" class="form-control mb-2" id="model" formControlName="model"/>
+        <div class="text-danger" *ngIf="
+            addCar.get('model')?.invalid &&
+            (addCar.get('model')?.dirty || addCar.get('model')?.touched)
+          ">
+          <div *ngIf="addCar.get('model')?.errors?.['required']">
+            Model Year is required.
+          </div>
+          <div *ngIf="addCar.get('model')?.errors?.['pattern']">
+            Please Enter Year from 1900 to 2023 only.
+          </div>
+        </div>
+
+        <label for="carMaker">Brand</label>
+        <select type="text" class="form-control mb-2" id="carMaker" formControlName="carMaker">
+          <option>Maruti Suzuki</option>
+          <option>Honda</option>
+          <option>Toyota</option>
+          <option>Tata</option>
+          <option>Hyundai</option>
+        </select>
+        <div class="text-danger" *ngIf="
+            addCar.get('carMaker')?.invalid &&
+            (addCar.get('carMaker')?.dirty || addCar.get('carMaker')?.touched)
+          ">
+          <div *ngIf="addCar.get('carMaker')?.errors?.['required']">
+            Brand is required.
+          </div>
+        </div>
+
+        <label for="availabilityStatus">Availablility Status</label>
+        <input type="text" class="form-control mb-2" id="availabilityStatus" formControlName="availabilityStatus" />
+        <div class="text-danger" *ngIf="
+            addCar.get('availabilityStatus')?.invalid &&
+            (addCar.get('availabilityStatus')?.dirty ||
+              addCar.get('availabilityStatus')?.touched)
+          ">
+          <div *ngIf="addCar.get('availabilityStatus')?.errors?.['required']">
+            Availability Status is required.
+          </div>
+          <div *ngIf="addCar.get('availabilityStatus')?.errors?.['pattern']">
+            Please fill either true or false.
+          </div>
+        </div>
+
+        <label for="imageUrl">Image Url</label>
+        <input type="text" class="form-control mb-2" id="imageUrl" formControlName="imageUrl" />
+        <div class="text-danger" *ngIf="
+            addCar.get('imageUrl')?.invalid &&
+            (addCar.get('imageUrl')?.dirty || addCar.get('imageUrl')?.touched)
+          ">
+          <div *ngIf="addCar.get('imageUrl')?.errors?.['required']">
+            Image Url is required.
+          </div>
+          <div *ngIf="addCar.get('imageUrl')?.errors?.['pattern']">
+            JPG or JPEG or PNG format only.
+          </div>
+        </div>
+
+        <label for="rentalPrice">Rental Price</label>
+        <input type="text" class="form-control mb-2" id="rentalPrice" formControlName="rentalPrice" />
+        <div class="text-danger" *ngIf="
+            addCar.get('rentalPrice')?.invalid &&
+            (addCar.get('rentalPrice')?.dirty ||
+              addCar.get('rentalPrice')?.touched)
+          ">
+          <div *ngIf="addCar.get('rentalPrice')?.errors?.['required']">
+            Price is required.
+          </div>
+          <div *ngIf="addCar.get('rentalPrice')?.errors?.['pattern']">
+            Invalid Price Format.Please enter a valid price, such as 10 or 10.0
+          </div>
+        </div>
+      </div>
+      <div class="d-grid">
+        <div class="d-flex justify-content-start gap-2">
+          <button [disabled]="addCar.invalid" class="btn btn-lg btn-primary mt-3 mb-3" type="submit">Add</button>
+          <button class="btn btn-lg btn-secondary mt-3 mb-3" (click)="resetForm()" type="reset">Reset</button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>
+

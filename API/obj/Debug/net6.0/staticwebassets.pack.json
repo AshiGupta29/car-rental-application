@@ -1,0 +1,65 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\Pranav\\Desktop\\Ashi\\nagarro\\Projects\\CarRentalApplication\\API\\wwwroot\\images\\cars\\amaze.jpeg",
+      "PackagePath": "staticwebassets\\images\\cars\\amaze.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\Pranav\\Desktop\\Ashi\\nagarro\\Projects\\CarRentalApplication\\API\\wwwroot\\images\\cars\\aura.jpeg",
+      "PackagePath": "staticwebassets\\images\\cars\\aura.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\Pranav\\Desktop\\Ashi\\nagarro\\Projects\\CarRentalApplication\\API\\wwwroot\\images\\cars\\camry.jpeg",
+      "PackagePath": "staticwebassets\\images\\cars\\camry.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\Pranav\\Desktop\\Ashi\\nagarro\\Projects\\CarRentalApplication\\API\\wwwroot\\images\\cars\\ciaz.jpeg",
+      "PackagePath": "staticwebassets\\images\\cars\\ciaz.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\Pranav\\Desktop\\Ashi\\nagarro\\Projects\\CarRentalApplication\\API\\wwwroot\\images\\cars\\hondaCity.jpeg",
+      "PackagePath": "staticwebassets\\images\\cars\\hondaCity.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\Pranav\\Desktop\\Ashi\\nagarro\\Projects\\CarRentalApplication\\API\\wwwroot\\images\\cars\\landCruiser.jpeg",
+      "PackagePath": "staticwebassets\\images\\cars\\landCruiser.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\Pranav\\Desktop\\Ashi\\nagarro\\Projects\\CarRentalApplication\\API\\wwwroot\\images\\cars\\swift.jpeg",
+      "PackagePath": "staticwebassets\\images\\cars\\swift.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\Pranav\\Desktop\\Ashi\\nagarro\\Projects\\CarRentalApplication\\API\\wwwroot\\images\\cars\\tiago.jpeg",
+      "PackagePath": "staticwebassets\\images\\cars\\tiago.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\Pranav\\Desktop\\Ashi\\nagarro\\Projects\\CarRentalApplication\\API\\wwwroot\\images\\cars\\tigor.jpeg",
+      "PackagePath": "staticwebassets\\images\\cars\\tigor.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\Pranav\\Desktop\\Ashi\\nagarro\\Projects\\CarRentalApplication\\API\\wwwroot\\images\\cars\\verna.jpeg",
+      "PackagePath": "staticwebassets\\images\\cars\\verna.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\Pranav\\Desktop\\Ashi\\nagarro\\Projects\\CarRentalApplication\\API\\wwwroot\\images\\cars\\wagonr.jpeg",
+      "PackagePath": "staticwebassets\\images\\cars\\wagonr.jpeg"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.API.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.build.API.props",
+      "PackagePath": "build\\API.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildMultiTargeting.API.props",
+      "PackagePath": "buildMultiTargeting\\API.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildTransitive.API.props",
+      "PackagePath": "buildTransitive\\API.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

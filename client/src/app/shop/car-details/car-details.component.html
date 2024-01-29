@@ -1,0 +1,36 @@
+<div class="container">
+    <div class="row" *ngIf="car">
+        <div class="col-6">
+            <img src="{{ car.imageUrl }}" alt="{{ car.name }}" class="w-100" />
+        </div>
+        <div class="col-6 mt-5">
+            <h2>{{ car.name }}</h2>
+            <div>
+                <div class="car-price">
+                    <span class="me-2" style="display: inline-block">
+                        <p class="original-price" style="font-size: 2em;">
+                            {{ car.rentalPrice | currency : "INR" : "symbol" }}/day
+                        </p>
+                    </span>
+                </div>
+            </div>
+
+            <span class="row mt-3">
+                <h4>Car Model Year</h4>
+                <p>{{ car.model }}</p>
+            </span>
+            <span class="row mt-3">
+                <h4>Brand</h4>
+                <p>{{ car.carMaker }}</p>
+            </span>
+            <span class="row mt-1">
+                <h4 *ngIf="car.availabilityStatus; else notAvailable" style="color: green;">Available</h4>
+                <ng-template #notAvailable>
+                    <h4 style="color: rgb(245, 33, 0);">Unavailable</h4>
+                </ng-template>
+            </span>
+            <button class="btn btn-primary mt-2 mb-2" *ngIf="car.availabilityStatus && (accountService.currentUser$ | async) !== null"  (click)="addItem(car)" routerLink="/basket">Proceed</button> 
+            <button class="btn btn-primary mt-2 mb-2"  *ngIf="car.availabilityStatus && (accountService.currentUser$ | async) === null" routerLink="/account/login">Proceed</button>
+        </div>
+    </div>
+</div>

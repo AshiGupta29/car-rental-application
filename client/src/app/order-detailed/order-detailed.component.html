@@ -1,0 +1,42 @@
+<div class="container mt-5">
+    <div class="row" *ngIf="order">
+        <div class="bg-light mb-5" style="font-weight: bold; margin-left: 50vh; font-size: 2em;">RENTAL SUMMARY</div>
+        <div class="col-6">
+            <img src="{{ order.imageUrl }}" alt="{{ order.carName }}" class="w-90" />
+        </div>
+        <div class="col-6">
+            <div class="d-inline-block" style="font-weight: bold; font-size: 1.3em;">Car Name: </div>
+            <span class="text-muted fst-italic" style="font-weight: bold; font-size: 1.2em;">
+                {{order.carName}}</span><br>
+
+            <div class="d-inline-block" style="font-weight: bold; font-size: 1.3em;">Model Year: </div>
+            <span class="text-muted fst-italic" style="font-weight: bold; font-size: 1.2em;"> {{order.model}}</span><br>
+
+            <div class="d-inline-block" style="font-weight: bold; font-size: 1.3em;">Rental Price: </div>
+            <span class="text-muted fst-italic" style="font-weight: bold; font-size: 1.2em;">
+                {{order.rentalPrice}}</span><br>
+
+            <div class="d-inline-block" style="font-weight: bold; font-size: 1.3em;">Rent Date: </div>
+            <span class="text-muted fst-italic" style="font-weight: bold; font-size: 1.2em;"> {{order.startDate | date:
+                'dd-MM-yyyy'}}</span><br>
+
+            <div class="d-inline-block" style="font-weight: bold; font-size: 1.3em;">Return Date: </div>
+            <span class="text-muted fst-italic" style="font-weight: bold; font-size: 1.2em;"> {{order.returnDate | date:
+                'dd-MM-yyyy'}}</span><br>
+
+            <div class="d-inline-block" style="font-weight: bold; font-size: 1.3em;">Total Days: </div>
+            <span class="text-muted fst-italic" style="font-weight: bold; font-size: 1.2em;"> {{totalDays(order.startDate, order.returnDate)}} days</span><br>
+
+            <div class="d-inline-block" style="font-weight: bold; font-size: 1.3em;">Total Amount: </div>
+            <span class="text-muted fst-italic" style="font-weight: bold; font-size: 1.2em;"> {{order.total}}</span><br>
+
+            <button class="btn btn-primary mt-2" *ngIf="order.isReturned ===1 || order.isReturned ===2"
+                (click)="returnCar(order.id, order.buyerEmail,order.orderdate,order.total,order.startDate,order.returnDate,order.isReturned,order.carId,order.carName,order.imageUrl,order.model,order.rentalPrice)"
+                [disabled]="order.isReturned ===2 ">Request for return</button><br>
+            <span *ngIf="order.isReturned === 2" style="font-size: 1.2em; font-weight: bold; color: orange;">Return
+                request Sent</span>
+            <span *ngIf="order.isReturned === 3"
+                style="font-size: 1.5em; font-weight: bold; color: red;">Returned</span>
+        </div>
+    </div>
+</div>
